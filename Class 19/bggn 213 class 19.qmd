@@ -1,0 +1,27 @@
+---
+title: "Class 19"
+author: "Celina Shen (PID: A16673724)"
+format: html
+editor: visual
+---
+
+## Create personal access token
+
+```{r}
+library(usethis)
+create_github_token()
+```
+
+```{r}
+library(gitcreds)
+gitcreds_set()
+```
+
+
+
+
+
+
+
+
+
