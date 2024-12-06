@@ -1,0 +1,95 @@
+---
+title: "Class 10 Structural Bioinformatics"
+format: html
+author: "Celina Shen (PID: A16673724)"
+---
+
+Q1: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy?
+```{r}
+pdbstats <- read.csv("pdb_stats.csv", row.names = 1)
+pdbstats
+```
+```{r}
+total <- pdbstats$Total
+new_total <- as.numeric(gsub(",", "", total))
+
+convert_comma_numbers <- function(x) {
+  x <- gsub(",", "", x)
+  x <- as.numeric(x)
+  return(x)
+}
+
+new_EM <- convert_comma_numbers(pdbstats$EM)
+new_xray <-convert_comma_numbers(pdbstats$X.ray)
+percentage <- ((sum(new_EM) + sum(new_xray))/sum(new_total))*100
+percentage
+```
+
+```{r}
+library(readr)
+pdb_stats <- read_csv("pdb_stats.csv")
+pdb_stats
+
+new_EM <- as.numeric(pdb_stats$EM)
+new_xray <-as.numeric(pdb_stats$`X-ray`)
+new_total <- as.numeric(pdb_stats$Total)
+s.EM <- sum(new_EM)
+s.XR <- sum(new_xray)
+s.T <- sum(new_total)
+((s.EM+s.XR)/s.T)*100
+(s.EM/s.T)*100
+(s.XR/s.T)*100
+```
+
+Q2: What proportion of structures in the PDB are protein?
+
+```{r}
+
+protein <- pdb_stats[1, "Total"]
+print(protein)
+(protein/s.T)*100
+```
+
+Q3: 183 Proteins associated with HIV
+
+
+## Using Molstar
+
+![](1HSG.png)
+
+```{r}
+library(bio3d)
+pdb <- read.pdb(file = "1hsg")
+```
+
+```{r}
+attributes(pdb)
+head(pdb$atom)
+pdbseq(pdb)
+length(pdbseq(pdb))
+```
+
+## Functional dynamics prediction
+
+```{r}
+source("https://tinyurl.com/viewpdb")
+library(r3dmol)
+library(shiny)
+
+view.pdb(pdb, backgroundColor = "skyblue")
+
+```
+
+```{r}
+adk <- read.pdb("6s36")
+modes <- nma(adk)
+
+mktrj(modes, file = "adk.pdb")
+view.pdb(adk)
+```
+
+![](ADK.PDB.png)
+
+
+
+
