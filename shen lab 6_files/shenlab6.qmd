@@ -1,0 +1,107 @@
+---
+title: "BGGN 123 Shen lab 6"
+format: html
+author: "Celina Shen (PID: A16673724)"
+---
+
+# Intro to functions lecture activities
+
+```{r}
+add <- function(x,y) {
+  x+y
+}
+```
+
+Can I just execute this chunk? No, because the "add" chunk has not been run yet!
+
+```{r}
+add (1,1)
+add (c(100,1),1)
+```
+
+```{r}
+add <- function(x, y=1) {
+  x+y
+}
+```
+
+If y≠1 in the input, the y=1 line will be overrode.
+
+```{r}
+add(5)
+add (1,3)
+add (c(100,1),2)
+```
+
+```{r}
+add <- function(x, y, z) {
+  x+y+z
+}
+add(10, 1, 1)
+```
+
+Make a function "generate_DNA()" that makes a random nucleotide sequence of any length.
+
+```{r}
+#generate_DNA <- function() {
+bases <- c("A", "C", "G", "T")
+sample(bases, size = 5, replace = TRUE)
+```
+
+Now that this part is working, I can make it into a function.
+
+```{r}
+generate_DNA <- function(length) {
+  bases <- c("A", "C", "G", "T")
+  sequence <- sample(bases, size = length, replace = TRUE)
+  return(sequence)
+}
+generate_DNA(10)
+```
+
+```{r}
+#install.packages("bio3d")
+library(bio3d)
+unique(bio3d::aa.table$aa1)[1:20]
+```
+
+Generate random protein sequences of length 6 to 12.
+
+```{r}
+generate_protein <- function(length){
+  amino_acids <- unique(bio3d::aa.table$aa1)
+  sequence <- sample(amino_acids, size=length, replace = TRUE)
+  sequence <- paste(sequence, collapse = "")
+  return(sequence)
+}
+```
+
+Sequences from length 6 to 12.
+
+```{r}
+answer <- sapply(6:12, generate_protein)
+answer
+```
+
+Run function
+
+```{r}
+generate_protein(6)
+```
+
+```{r}
+paste(c("barry", "alice", "amy", "chandra"),
+      "loves R")
+```
+
+```{r}
+paste(">id.", 6:12, "\n", answer, "\n", sep ="")
+```
+
+```{r}
+cat(paste(">id.", 6:12, "\n", answer, "\n", sep =""), sep = "")
+```
+
+
+
+
